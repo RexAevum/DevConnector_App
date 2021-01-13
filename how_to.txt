@@ -1,0 +1,15 @@
+1) git init
+2) npm init - init package.json
+3) npm install :
+    express --> main web framework for back end
+    express-validator --> data validation when making a request 
+    bcryptjs --> password encryption
+    config --> global variables
+    gravatar --> profile avatars (users can use email to link to a gravitas account that will pull the picture)
+    jsonwebtoken --> jwt to pass a token for validation
+    mongoose --> API to interract with the db
+    request --> http requests to another api (for git hub repo)
+
+4) npm install -D (dev dependencies)
+    nodemon --> so don't have to restart server every time there is a change
+    concurrently --> will allow the backend express and front end react to run at the same time with one command
