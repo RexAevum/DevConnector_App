@@ -1,0 +1,3 @@
+It's a better practice to seperate the db connection into another file to make the code cleaner
+    1) create a default.json file that will hold a variable for mongoURI which is the URL for connecting to db
+    2) create a seperate js file for the connection
