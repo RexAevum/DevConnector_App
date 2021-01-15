@@ -51,10 +51,10 @@ router.post('/',
             });
             
             user = new User({
-                name,
-                email,
+                name: name,
+                email: email,
                 password,
-                avatar
+                avatar: avatar
             });
 
             // Encrypt the password using bcrypt
@@ -73,11 +73,11 @@ router.post('/',
             // Sighn a toke for user to be auto logged in
             await jwt.sign(payload, // data to be passed
                 config.get('jwtSecret'), // signature
-                { expiresIn: 360000},
+                { expiresIn: 360000}, //3600 default
                 (err, token) => {
                     if (err) throw err;
                     res.json({ token });
-                }); //3600 default
+                }); 
 
             // return json webtoken so the user gets logged in right away
             //res.send(`User added...`);

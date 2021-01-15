@@ -14,7 +14,7 @@ const config = require('config');
 const bcrypt = require('bcryptjs');
 
 // @route   GET api/auth
-// @desc    Test rout
+// @desc    Get user
 // @access  Public
 router.get('/', auth, async (req, res) => { // by adding the auth function, it will automaticaly be authorised
     try {
@@ -72,7 +72,7 @@ router.post('/',
                 res.status(400).json([{ msg : 'Invalid Credentials'}]);
             }
 
-            // Sighn a toke for user to be auto logged in
+            // Sign a toke for user to be auto logged in
             await jwt.sign(payload, // data to be passed
                 config.get('jwtSecret'), // signature
                 { expiresIn: 360000},
