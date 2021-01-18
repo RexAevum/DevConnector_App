@@ -1,3 +1,4 @@
+Backend:
 1) git init
 2) npm init - init package.json
 3) npm install :
@@ -13,3 +14,35 @@
 4) npm install -D (dev dependencies)
     nodemon --> so don't have to restart server every time there is a change
     concurrently --> will allow the backend express and front end react to run at the same time with one command
+_________________________________________________________________________________________________________________
+Frontend:
+5) Setting up react project
+    --> npx create-react-app {folderName}
+        - will set up react server for front end
+        - must be done in the same folder as main.js file (ex > server.js)
+
+6) Using concurrently to run both the front end and back end server at the same time
+    a) Go to package.json
+    b) Add 2 new scripts
+        1) Run the client/react server in the foler it was created in (--prefix will make it run in its main folder)
+            - "{scriptName}" : "npm start --prefix {folderName}"
+            EX > "server" : "npm start --prefix client"
+        2) Run a concurrently script that runs both servers at the same time
+            - "{scriptName}" : "concurrently \"{first script}\" \"{second script}\" "
+            EX > "dev": "concurrently \"npm run server\" \"npm run client\""
+
+7) Install needed dependencies 
+    --> npm install
+        axios --> used to make http requests (could use fetch api but this has more options)
+        react-router-dom --> handles navigating the webapp
+        redux --> used to manage the webapp state
+        react-redux --> allows redux to interact with react
+        redux-thunk --> middleware to make a syncronus request
+        redux-devtools-extension --> to use redux devtools
+        moment --> date and time lib for formating
+        react-moment --> so we can use moment within a component
+
+8) Add a proxy so that we do not need to add the whole url when making a request
+    --> "proxy": "http://{address of server root}
+    EX > before proxy --> axios.get('http://localhost:5000/api/users')
+        -->with proxy --> axios.get('/api/users)
