@@ -2,8 +2,12 @@ import React from 'react';
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+// used for reducer
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
 
-export const Register = () => {
+const Register = (props) => {
     // formData = defines a state (const state = {{state: "fasef"}})
     // setFormData = sets the data in the state (this.state.x)
     // Define state
@@ -32,7 +36,7 @@ export const Register = () => {
         e.preventDefault();
         // check if passwords match
         if (password !== password2){
-            console.log('Passwords do not match');
+            props.setAlert('Passwords do not match', 'danger'); // second varible responds to css
         }else{
             // // create a new user without redux
             // const newUser = {
@@ -120,7 +124,11 @@ export const Register = () => {
             Already have an account? <Link to="/login">Sign In</Link>
         </p>
     </Fragment>
-    )
+    );
+};
+
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired
 }
 
-export default Register;
+export default connect(null, { setAlert })(Register);

@@ -1,0 +1,27 @@
+1) create a store.js file in the root of the front end (client)
+    - this will create a store that the redux devapp can see
+    - where you set any middleware that is needed for the reducer
+    - need to create and export the store
+
+2) import provider into App.js and wrap the entire response in provider
+    - so that all of the created components can access the app lvl state
+
+3) create a reducers folder inside src folder and add index.js that will server as the root reducer
+    - import the rootReducer to the store.js
+    - this file will export combineReducers(), where we need to list all of the reducers
+        - import from another file
+
+4) Create a specific reducer (ex > alert.js)
+    - exports a state of reducers
+        - in the case of alerts, will return a function that manages the differnet types of alerts that are user 
+        defined
+
+5) Create an actions folder where the state 
+    - where the state will be updated based on the action action
+    - if thunk is installed, can use dispatch to pass on the payload of the actio to the reducer, which will be connected to a 
+    component in the App.js
+
+6)Update a spacific route file using react-redux so both are connected
+    - need to import the action
+    - need to import connect to link react and redux, which will allow the user of props
+        EX > default export connect(null, { setAlert }(Register))
