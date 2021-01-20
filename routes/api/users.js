@@ -24,7 +24,7 @@ router.post('/',
     // check if a valid email has been entered
     body('email', 'Please include a valid email').isEmail(),
     // check if password is atleast 6 char long
-    body('password', 'Please use a password woth 6 or more chararcters').isLength({ min: 6}),
+    body('password', 'Please use a password with 6 or more chararcters').isLength({ min: 6}),
     async (req, res) => {
         // check if there are any input errors 
         const err = validationResult(req);
