@@ -6,6 +6,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
 // Redux
 import { Provider } from 'react-redux'; // all components will be able to access the store
 import store from './store';// the imported store using redux
@@ -34,6 +36,7 @@ const App = () => {
             <Switch>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
+              <PrivateRoute exact path='/dashboard' component={Dashboard}></PrivateRoute>
             </Switch>
             <Alert />
           </section>
