@@ -288,6 +288,9 @@ button {
 .form .social-input i.fa-linkedin {
   color: #0077b5;
 }
+.form .social-input i.fa-handshake {
+  color: red;
+}
 
 .table th,
 .table td {
