@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { createOrUpdateProfile } from '../../actions/profile';
 
-const CreateProfile = props => {
+const CreateProfile = ({ createOrUpdateProfile, history }) => {
     const [formData, setFormData] = useState({
         company: '',
         website: '',
@@ -34,6 +35,12 @@ const CreateProfile = props => {
         })
     }
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        // create profile
+        createOrUpdateProfile(formData, history, true);
+    }
+
 
     return (
         <Fragment>
@@ -45,7 +52,7 @@ const CreateProfile = props => {
                 profile stand out
             </p>
             <small>* = required field</small>
-            <form className="form">
+            <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                 <select name="status" value={status} onChange={e => onChange(e)}>
                     <option value="0">* Select Professional Status</option>
@@ -153,11 +160,9 @@ const CreateProfile = props => {
 }
 
 CreateProfile.propTypes = {
-
+    createOrUpdateProfile: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth
-})
+const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps, {createOrUpdateProfile})(withRouter(CreateProfile)); // withRouter allows the the history to be passed in, which will allows for redirects
