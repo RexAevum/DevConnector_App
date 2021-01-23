@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { createOrUpdateProfile } from '../../actions/profile';
+import { createOrUpdateProfile, getCurrentProfile } from '../../actions/profile';
 
-const CreateProfile = ({ createOrUpdateProfile, history }) => {
+// props -> same as create profile, just also need to import prifle and loading from the profile state, and getCurrentProfile function
+const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCurrentProfile, history }) => {
     const [formData, setFormData] = useState({
         company: '',
         website: '',
@@ -21,6 +22,31 @@ const CreateProfile = ({ createOrUpdateProfile, history }) => {
         handshake: ''
     });
 
+    // Load user info from existing profile once the page loads
+    useEffect(() => {
+        // get the current profile from db using token
+        getCurrentProfile();
+        // set the form data with the retrieved info from the profile prop
+        setFormData({
+            // need to check if app has finished retrieving data from db or if the field has any vales, to prevent a null from being set
+            company: loading || !profile.company ? '' : profile.company,
+            website: loading || !profile.website ? '' : profile.website,
+            location: loading || !profile.location ? '' : profile.location,
+            status: loading || !profile.status ? '' : profile.status,
+            skills: loading || !profile.skills ? '' : profile.skills.join(','),
+            bio: loading || !profile.bio ? '' : profile.bio,
+            githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
+            // social is an object within profile, so need to check profile.social items
+            youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
+            twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
+            facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
+            linkedin: loading || !profile.social.linkedin ? '' : profile.social.linkedin,
+            instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
+            handshake: loading || !profile.social.handshake ? '' : profile.social.handshake,
+        });
+
+    }, [loading]); // will keep running till loading is false
+
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
     const { company, website, location, status, skills, bio, githubusername, youtube, twitter, facebook,
@@ -32,23 +58,23 @@ const CreateProfile = ({ createOrUpdateProfile, history }) => {
         setFormData({
             ...formData,
             [e.target.name] : e.target.value
-        })
+        });
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
         // create profile
-        createOrUpdateProfile(formData, history);
+        createOrUpdateProfile(formData, history, true);
     }
 
 
     return (
         <Fragment>
             <h1 className="large text-primary">
-                Create Your Profile
+                Update Your Profile
             </h1>
             <p className="lead">
-                <i className="fas fa-user"></i> Let's get some information to make your
+                <i className="fas fa-user"></i> Let's get the newest information to make your
                 profile stand out
             </p>
             <small>* = required field</small>
@@ -152,17 +178,21 @@ const CreateProfile = ({ createOrUpdateProfile, history }) => {
                     </div>
 
                 </Fragment>)}
-                <input type="submit" className="btn btn-primary my-1" />
+                <input type="submit" className="btn btn-primary my-1" value="Update Profile"/>
                 <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
             </form>
         </Fragment>
     )
 }
 
-CreateProfile.propTypes = {
-    createOrUpdateProfile: PropTypes.func.isRequired
+EditProfile.propTypes = {
+    createOrUpdateProfile: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    profile: state.profile
+});
 
-export default connect(mapStateToProps, {createOrUpdateProfile})(withRouter(CreateProfile)); // withRouter allows the the history to be passed in, which will allows for redirects
+export default connect(mapStateToProps, {createOrUpdateProfile, getCurrentProfile })(withRouter(EditProfile)); // withRouter allows the the history to be passed in, which will allows for redirects
