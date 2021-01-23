@@ -2,6 +2,8 @@ import {
     CLEAR_PROFILE,
     DELETED_ACCOUNT,
     GET_PROFILE,
+    GET_PROFILES,
+    GET_REPOS,
     PROFILE_ERROR,
     UPDATE_PROFILE
 } from './types';
@@ -18,6 +20,73 @@ export const getCurrentProfile = () => async dispatch => {
         // dsipatch that the user has been retrieved and send back user data
         dispatch({
             type: GET_PROFILE,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            error: {
+                msg : error.response.statusText,
+                status: error.response.status
+            }
+        });
+    }
+};
+
+// get all profiles
+export const getAllProfiles = () => async dispatch => {
+    // clear out the current users profile 
+    dispatch({ type: CLEAR_PROFILE});
+
+    //
+    try {
+        // get user profile
+        const res = await axios.get('/api/profile');
+        // dsipatch that the user has been retrieved and send back user data
+        dispatch({
+            type: GET_PROFILES,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            error: {
+                msg : error.response.statusText,
+                status: error.response.status
+            }
+        });
+    }
+};
+
+// get profile by id
+export const getProfileById = (userId) => async dispatch => {
+    try {
+        // get user profile
+        const res = await axios.get(`/api/profile/user/${userId}`);
+        // dsipatch that the user has been retrieved and send back user data
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            error: {
+                msg : error.response.statusText,
+                status: error.response.status
+            }
+        });
+    }
+};
+
+// get github repos
+export const getGithubRepos = (username) => async dispatch => {
+    try {
+        // get user profile
+        const res = await axios.get(`/api/profile/github/${username}`);
+        // dsipatch that the user has been retrieved and send back user data
+        dispatch({
+            type: GET_REPOS,
             payload: res.data
         });
     } catch (error) {

@@ -13,3 +13,5 @@ export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const CREATE_PROFILE = 'CREATE_PROFILE';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const DELETED_ACCOUNT = "DELETED_ACCOUNT";
+export const GET_PROFILES = 'GET_PROFILES';
+export const GET_REPOS = 'GET_REPOS';
