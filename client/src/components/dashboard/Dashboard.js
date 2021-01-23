@@ -3,13 +3,13 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
+import { deleteAccount, getCurrentProfile } from '../../actions/profile';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
 
-const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading }}) => {
+const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading }, deleteAccount}) => {
     // when  the page loads, retrieve current user profile
     useEffect(() => {
         getCurrentProfile();
@@ -21,15 +21,27 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
         <p className="lead">
             <i className="fas fa-user"></i> Welcome { user && user.name}
         </p>
-        <DashboardActions></DashboardActions>
-        <Experience experience={profile.experience}/> {/* Need to pass expereince prop from current user to be bale to display them */}
-        <Education education={profile.education}/>
-        <p>{profile !== null ? <Fragment></Fragment> : 
+        {profile !== null ? (
             <Fragment>
-                <p>You have yet to add anything to your profile, add information to display here</p>
-                <Link to="/create-profile" className="btn btn-primary my-1">Setup Profile</Link>
-            </Fragment>}
-        </p>
+                <DashboardActions></DashboardActions>
+                <Experience experience={profile.experience}/> {/* Need to pass expereince prop from current user to be bale to display them */}
+                <Education education={profile.education}/>
+
+                <div className="my-2">
+                    <button className="btn btn-danger" onClick={() => deleteAccount()}>
+                        <i className="fas fa-user-minus"></i> Delete My Account
+                    </button>
+                </div>
+            </Fragment>
+        ) : ( 
+            <p>{profile !== null ? <Fragment></Fragment> : 
+                <Fragment>
+                    <p>You have yet to add anything to your profile, add information to display here</p>
+                    <Link to="/create-profile" className="btn btn-primary my-1">Setup Profile</Link>
+                </Fragment>}
+            </p>
+        )}
+
     </Fragment>)
     );
 }
@@ -37,7 +49,8 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
 Dashboard.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+    profile: PropTypes.object.isRequired,
+    deleteAccount: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -45,4 +58,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 })
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
