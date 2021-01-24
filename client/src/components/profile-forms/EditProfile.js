@@ -45,7 +45,7 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
             handshake: loading || !profile.social.handshake ? '' : profile.social.handshake,
         });
 
-    }, [loading]); // will keep running till loading is false
+    }, [loading, getCurrentProfile]); // will keep running till loading is false
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 

@@ -12,6 +12,7 @@ import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
 import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
+import Profiles from './components/profiles/Profiles';
 // Redux
 import { Provider } from 'react-redux'; // all components will be able to access the store
 import store from './store';// the imported store using redux
@@ -40,6 +41,7 @@ const App = () => {
             <Switch>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
+              <Route exact path="/profiles" component={Profiles}></Route>
               <PrivateRoute exact path='/dashboard' component={Dashboard}></PrivateRoute>
               <PrivateRoute exact path="/create-profile" component={CreateProfile}></PrivateRoute>
               <PrivateRoute exact path="/edit-profile" component={EditProfile}/>

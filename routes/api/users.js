@@ -13,6 +13,7 @@ const bcrypt = require('bcryptjs');
 // import the config for token
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const normalize = require('normalize-url');
 
 
 // @route   POST api/users
@@ -44,11 +45,14 @@ router.post('/',
                 return res.status(400).json({ errors: [{ msg : 'User already exists' }] }); // add return to a res unless its the last one
             }
             // Get users gravitar
-            const avatar = gravatar.url(email, {
-                s: '200', // string lenght
-                r: 'pg', // rating of image (no pg)
-                d: 'mm' // default image
-            });
+            const avatar = normalize(
+                gravatar.url(email, {
+                    s: '200', // string lenght
+                    r: 'pg', // rating of image (no pg)
+                    d: 'mm' // default image
+                }), 
+                { forceHttps: true }
+            );
             
             user = new User({
                 name: name,

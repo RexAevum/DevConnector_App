@@ -1,5 +1,5 @@
 // Form for adding education
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import {  connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { addEducation } from '../../actions/profile';

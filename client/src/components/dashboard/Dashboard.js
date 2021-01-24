@@ -13,7 +13,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
     // when  the page loads, retrieve current user profile
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+    }, [getCurrentProfile]);
     
     // check if loading, since if no profile is found for user will run Spinner for ever
     return (loading && profile === null ? (<Spinner />) : (<Fragment>
