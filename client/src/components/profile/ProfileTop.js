@@ -11,6 +11,20 @@ const ProfileTop = ({ profile: {
     social,
     user: { name, avatar }
 }}) => {
+    // if no social media accounts are added, return empty string
+    if (typeof(social) == 'undefined') {
+        social = {
+            youtube: '',
+            twitter: '',
+            facebook: '',
+            linkedin: '',
+            instagram: '',
+            handshake: ''
+        }
+    }
+    if (typeof(website) == 'undefined'){
+        website = ''
+    }
     return (
         <Fragment>
             {/*<!-- Top --> */}

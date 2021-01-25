@@ -24,7 +24,7 @@ const ProfileItem = ({ profile: {
                             <i className="fas fa-check" /> {skill}
                         </li>
                     ))}
-                    {skills.length > 5 && (<li><h2 className="text-primary">...</h2></li>)}
+                    {skills.length > 5 && (<li><h2 className="text-primary">And More</h2></li>)}
                 </ul>
             </div>
         </Fragment>
