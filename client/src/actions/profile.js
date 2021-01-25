@@ -114,15 +114,23 @@ export const createOrUpdateProfile = (formData, history, edit = false) => async 
 
         // set up body -> formData
         // make a request
+        console.log(formData)
         const res = await axios.post('/api/profile', formData, config);
 
         //
-        dispatch({
-            type: GET_PROFILE,
-            payload: res.data
-        });
+        if (!edit){
+            dispatch({
+                type: GET_PROFILE,
+                payload: res.data
+            });
+        }else{
+            dispatch({
+                type: UPDATE_PROFILE,
+                payload: res.data
+            })
+        }
 
-        dispatch(setAlert('Experience Added', 'success'));
+        dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", 'success'));
         // If a new profile is created, forward user to dashboard
         history.push('/dashboard');
 

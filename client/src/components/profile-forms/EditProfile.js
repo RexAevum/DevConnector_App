@@ -6,7 +6,7 @@ import { createOrUpdateProfile, getCurrentProfile } from '../../actions/profile'
 
 // props -> same as create profile, just also need to import prifle and loading from the profile state, and getCurrentProfile function
 const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCurrentProfile, history }) => {
-    const [formData, setFormData] = useState({
+    const initialState = {
         company: '',
         website: '',
         location: '',
@@ -20,32 +20,28 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
         linkedin: '',
         instagram: '',
         handshake: ''
-    });
+    };
+    
+    const [formData, setFormData] = useState(initialState);
 
     // Load user info from existing profile once the page loads
     useEffect(() => {
-        // get the current profile from db using token
-        getCurrentProfile();
-        // set the form data with the retrieved info from the profile prop
-        setFormData({
-            // need to check if app has finished retrieving data from db or if the field has any vales, to prevent a null from being set
-            company: loading || !profile.company ? '' : profile.company,
-            website: loading || !profile.website ? '' : profile.website,
-            location: loading || !profile.location ? '' : profile.location,
-            status: loading || !profile.status ? '' : profile.status,
-            skills: loading || !profile.skills ? '' : profile.skills.join(','),
-            bio: loading || !profile.bio ? '' : profile.bio,
-            githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
-            // social is an object within profile, so need to check profile.social items
-            youtube: loading || !profile.social.youtube ? '' : profile.social.youtube,
-            twitter: loading || !profile.social.twitter ? '' : profile.social.twitter,
-            facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
-            linkedin: loading || !profile.social.linkedin ? '' : profile.social.linkedin,
-            instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
-            handshake: loading || !profile.social.handshake ? '' : profile.social.handshake,
-        });
-
-    }, [loading, getCurrentProfile]); // will keep running till loading is false
+        if (!profile) getCurrentProfile();
+        if (!loading && profile) {
+          const profileData = { ...initialState };
+          console.log(profileData)
+          for (const key in profile) {
+            if (key in profileData) profileData[key] = profile[key];
+          }
+          for (const key in profile.social) {
+            if (key in profileData) profileData[key] = profile.social[key];
+          }
+          if (Array.isArray(profileData.skills)){
+            profileData.skills = profileData.skills.join(', ');
+          }
+          setFormData(profileData);
+        }
+      }, [loading, getCurrentProfile, profile]); // will keep running till loading is false
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
