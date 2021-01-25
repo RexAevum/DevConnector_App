@@ -68,19 +68,19 @@ body('skills', 'Skills is required').not().isEmpty()
     profileFields.user = req.user.id;
     // check if all info has been passed
     profileFields.company = company;
-    profileFields.website = website ? normalize(website) : '';
+    profileFields.website = website ? normalize(website, { forceHttps : true}) : '';
     profileFields.location = location;
     profileFields.bio = bio;
     profileFields.status = status;
     profileFields.githubusername = githubusername;
     // Build social object
     profileFields.social = {};
-    if (youtube) profileFields.social.youtube = normalize(youtube);
-    if (facebook) profileFields.social.facebook = normalize(facebook);
-    if (twitter) profileFields.social.twitter = normalize(twitter);
-    if (instagram) profileFields.social.instagram = normalize(instagram);
-    if (linkedin) profileFields.social.linkedin = normalize(linkedin);
-    if (handshake) profileFields.social.handshake = normalize(handshake);
+    if (youtube) profileFields.social.youtube = normalize(youtube, { forceHttps : true});
+    if (facebook) profileFields.social.facebook = normalize(facebook, { forceHttps : true});
+    if (twitter) profileFields.social.twitter = normalize(twitter, { forceHttps : true});
+    if (instagram) profileFields.social.instagram = normalize(instagram, { forceHttps : true});
+    if (linkedin) profileFields.social.linkedin = normalize(linkedin, { forceHttps : true});
+    if (handshake) profileFields.social.handshake = normalize(handshake, { forceHttps : true});
     // Build skills list
     if (skills) {
         // need to make the skills an array, what we get is a seperated list

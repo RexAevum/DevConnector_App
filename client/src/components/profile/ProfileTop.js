@@ -22,9 +22,7 @@ const ProfileTop = ({ profile: {
             handshake: ''
         }
     }
-    if (typeof(website) == 'undefined'){
-        website = ''
-    }
+
     return (
         <Fragment>
             {/*<!-- Top --> */}
