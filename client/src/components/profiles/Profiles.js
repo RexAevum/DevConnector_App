@@ -35,10 +35,10 @@ const Profiles = ({ getAllProfiles, profile: { profiles, loading } }) => {
 Profiles.propTypes = {
     getAllProfiles: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
     profile: state.profile
-})
+});
 
 export default connect(mapStateToProps, { getAllProfiles })(Profiles);

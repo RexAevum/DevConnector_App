@@ -10,6 +10,7 @@ const User = require('../../models/User');
 const Post = require('../../models/Post');
 const request = require('request');
 const config = require('config');
+const normalize = require('normalize-url');
 
 // @route   GET api/profile/me
 // @desc    Get current users profile
@@ -67,19 +68,19 @@ body('skills', 'Skills is required').not().isEmpty()
     profileFields.user = req.user.id;
     // check if all info has been passed
     if (company) profileFields.company = company;
-    if (website) profileFields.website = website;
+    if (website) profileFields.website = normalize(website);
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
     // Build social object
     profileFields.social = {};
-    if (youtube) profileFields.social.youtube = youtube;
-    if (facebook) profileFields.social.facebook = facebook;
-    if (twitter) profileFields.social.twitter = twitter;
-    if (instagram) profileFields.social.instagram = instagram;
-    if (linkedin) profileFields.social.linkedin = linkedin;
-    if (handshake) profileFields.social.handshake = handshake;
+    if (youtube) profileFields.social.youtube = normalize(youtube);
+    if (facebook) profileFields.social.facebook = normalize(facebook);
+    if (twitter) profileFields.social.twitter = normalize(twitter);
+    if (instagram) profileFields.social.instagram = normalize(instagram);
+    if (linkedin) profileFields.social.linkedin = normalize(linkedin);
+    if (handshake) profileFields.social.handshake = normalize(handshake);
     // Build skills list
     if (skills) {
         // need to make the skills an array, what we get is a seperated list
