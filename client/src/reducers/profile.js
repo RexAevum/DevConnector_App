@@ -52,6 +52,7 @@ export default function (state = initialState, action) {
             }
         case GET_REPOS:
             return {
+                ...state,
                 type: GET_REPOS,
                 repos: payload,
                 loading: false 

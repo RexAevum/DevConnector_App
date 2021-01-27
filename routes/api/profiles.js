@@ -348,7 +348,7 @@ router.get('/github/:username', async(req, res) => {
             headers: {'user-agent' : 'node.js'}
         };
         // make a request using the above defined request
-        request(options, (error, response, body) =>{
+        await request(options, (error, response, body) =>{
             if (error) console.error(error);
             // Check if user is found
             if (response.statusCode !== 200){

@@ -8,6 +8,7 @@ import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
+import ProfileGithub from './ProfileGithub';
 
 const Profile = ({ getProfileById, profile: { profile, loading }, auth, match }) => {
     useEffect( () => {
@@ -47,6 +48,9 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth, match })
                             ))}
                         </Fragment>) : (<h4>No Education Found</h4>)}
                     </div>
+                    {profile.githubusername && (
+                        <ProfileGithub username={profile.githubusername}/>
+                    )}
                 </div>
             )}
 
