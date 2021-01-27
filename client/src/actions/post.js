@@ -2,7 +2,8 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import { 
     GET_POSTS,
-    POSTS_ERROR
+    POSTS_ERROR,
+    UPDATE_LIKES
  } from './types';
 
 
@@ -22,4 +23,40 @@ import {
              payload: {msg: error.response.statusText, status: error.response.status}
          });
      }
- }
+ };
+
+ // Add like
+ export const addLike = (postId) => async dispatch => {
+     try {
+         // get posts
+         const res = await axios.put(`/api/posts/like/${postId}`);
+
+         dispatch({
+             type: UPDATE_LIKES,
+             payload: { postId, likes: res.data}
+         });
+     } catch (error) {
+         dispatch({
+             type: POSTS_ERROR,
+             payload: {msg: error.response.statusText, status: error.response.status}
+         });
+     }
+ };
+
+  // Remove like
+  export const removeLike = (postId) => async dispatch => {
+    try {
+        // get posts
+        const res = await axios.put(`/api/posts/unlike/${postId}`);
+
+        dispatch({
+            type: UPDATE_LIKES,
+            payload: { postId, likes: res.data}
+        });
+    } catch (error) {
+        dispatch({
+            type: POSTS_ERROR,
+            payload: {msg: error.response.statusText, status: error.response.status}
+        });
+    }
+};
