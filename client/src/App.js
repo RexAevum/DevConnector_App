@@ -14,6 +14,7 @@ import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile  from './components/profile/Profile';
+import Posts from './components/posts/Posts';
 // Redux
 import { Provider } from 'react-redux'; // all components will be able to access the store
 import store from './store';// the imported store using redux
@@ -49,6 +50,7 @@ const App = () => {
               <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
               <PrivateRoute exact path="/add-experience" component={AddExperience} />
               <PrivateRoute exact path="/add-education" component={AddEducation} />
+              <PrivateRoute exact path="/posts" component={Posts} />
             </Switch>
             <Alert />
           </section>

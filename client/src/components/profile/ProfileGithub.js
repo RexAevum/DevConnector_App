@@ -12,7 +12,7 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 
     }, [getGithubRepos])
 
-    console.log(repos)
+    // @TODO - get count of commits
     return (
         <Fragment>
             <div className="profile-github">
