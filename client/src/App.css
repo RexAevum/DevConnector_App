@@ -79,6 +79,9 @@ img {
 .p {
   padding: 0.5rem;
 }
+.p-01 {
+  padding: 0.1rem;
+}
 .p-1 {
   padding: 1rem;
 }

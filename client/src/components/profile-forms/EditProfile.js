@@ -111,8 +111,8 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
                 </div>
                 <div className="form-group">
                 <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={e => onChange(e)}/>
-                <small className="form-text"
-                    >Please use comma separated values (eg.
+               <small className="form-text"
+                    > - Please use comma separated values (eg.
                     HTML,CSS,JavaScript,PHP)</small
                 >
                 </div>
