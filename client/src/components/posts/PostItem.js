@@ -6,20 +6,20 @@ import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 
 
-const PostItem = ({ post: { _id, text, avatar, user, likes, comments, date}, auth, addLike, removeLike, deletePost }) => {
+const PostItem = ({ post: { _id, text, avatar, user, likes, comments, date, name}, auth, addLike, removeLike, deletePost }) => {
     return (
         <Fragment>
             <div class="posts">
                 <div class="post bg-white p-1 my-1">
                     <div>
-                        <a href="profile.html">
-                        <img
-                            class="round-img"
-                            src={avatar}
-                            alt=""
-                        />
-                        <h4>{user.name}</h4>
-                        </a>
+                        <Link to={`/profile/${user}`}>
+                            <img
+                                class="round-img"
+                                src={avatar}
+                                alt=""
+                            />
+                            <h4>{name}</h4>
+                        </Link>
                     </div>
                     <div>
                         <p class="my-1">
