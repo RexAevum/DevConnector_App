@@ -9,7 +9,7 @@ const NotFound = props => {
                 <i className="fas fa-exclamation-triangle"></i> Page Not Found
             </h1>
             <p className="large">Sorry, this page does not exist</p>
-            <Link to="/">Back To Homepage</Link>
+            <Link className="btn" to="/">Back To Homepage</Link>
         </Fragment>
     )
 }
