@@ -193,7 +193,7 @@ router.post('/comment/:id', [auth, [
             user: req.user.id,
             text: req.body.text,
             name: user.name,
-            avatart: user.avatar,
+            avatar: user.avatar,
         };
         //add comment to post comments
         post.comments.unshift(newComment);

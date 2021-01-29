@@ -34,12 +34,13 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
                 </div>
             </Fragment>
         ) : ( 
-            <p>{profile !== null ? <Fragment></Fragment> : 
+            <p>{profile !== null ? <Fragment></Fragment> :                
                 <Fragment>
                     <p>You have yet to add anything to your profile, add information to display here</p>
                     <Link to="/create-profile" className="btn btn-primary my-1">Setup Profile</Link>
-                </Fragment>}
-            </p>
+                </Fragment>    
+            }</p>
+            
         )}
 
     </Fragment>)
