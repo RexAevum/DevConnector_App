@@ -75,6 +75,7 @@ const ProfileTop = ({ profile: {
                     )}
 
                 </div>
+                {social.length > 0 || website && (<p><small className="form-text">^LINKS^</small></p>)}
             </div>
         </Fragment>
     )

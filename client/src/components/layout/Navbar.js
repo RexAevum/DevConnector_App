@@ -21,12 +21,14 @@ export const Navbar = ({ auth: { isAuthenticated, loading, user}, logout}) => {
                     <span className="hide-sm">Posts</span>
                 </Link>
             </li>
-            <li>
-                <Link to={`/profile/${user._id}`}>
-                    <i className="fas fa-id-badge" />{' '}
-                    <span className="hide-sm">My Profile</span>
-                </Link>
-            </li>
+                {!loading && user !== null && (
+                <li>
+                    <Link to={`/profile/${user._id}`}>
+                        <i className="fas fa-id-badge" />{' '}
+                        <span className="hide-sm">My Profile</span>
+                    </Link>
+                </li>
+                )}
             <li>
                 <Link to='/dashboard'>
                     <i className="fas fa-user-cog"></i>{' '}
@@ -45,9 +47,10 @@ export const Navbar = ({ auth: { isAuthenticated, loading, user}, logout}) => {
     const guestLinks = (
         <ul>
             <li>
-                <Link to='/profiles'>
-                    Developers
-                </Link>
+            <Link to='/profiles'>
+                    <i className="fas fa-users" />{' '}
+                    <span>Developers</span>
+            </Link>
             </li>
             <li><Link to="/register">Register</Link></li>
             <li><Link to="/login">Login</Link></li>
