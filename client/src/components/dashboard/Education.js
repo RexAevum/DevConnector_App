@@ -30,8 +30,8 @@ const Education = ({ education, deleteEducation }) => {
                     <tr> {/* Defines a row in html */}
                         <th>School</th> {/* Define a header cell */}
                         <th className="hide-sm">Degree</th>
-                        <th className="hide-sm">Years</th>
-                        <th className="hide-sm">Remove</th>
+                        <th className="hide-sm">Duration</th>
+                        <th className="hide-sm"></th>
                     </tr>
                 </thead>
                 <tbody>

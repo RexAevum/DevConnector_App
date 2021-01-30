@@ -90,6 +90,81 @@ router.post('/',
             res.status(500).send(`Server error`);
         }
 
-})
+});
+
+// @route   POST api/users/update-user
+// @desc    Update user
+// @access  Private
+router.post('/update-user', 
+    // check if user entered name
+    body('name', 'Name is needed').not().isEmpty(),
+    // check if a valid email has been entered
+    body('email', 'Please include a valid email').isEmail(),
+    // check if password is atleast 6 char long
+    body('password', 'Please use a password with 6 or more chararcters').isLength({ min: 6}),
+    async (req, res) => {
+        // check if there are any input errors 
+        const err = validationResult(req);
+        if (!err.isEmpty()){
+            // return a status of 400 - bad request and the generated error
+            return res.status(400).json({errors: err.array()});
+        }
+
+        const {name, email, newEmail, password} = req.body;
+
+        const setEmail = newEmail ? newEmail : email;
+
+        try {
+            // Get users gravitar
+            const avatar = normalize(
+                gravatar.url(setEmail, {
+                    s: '200', // string lenght
+                    r: 'pg', // rating of image (no pg)
+                    d: 'mm' // default image
+                }), 
+                { forceHttps: true }
+            );
+            
+            // find the user to get id for token
+            const user = await User.findOne({email});
+
+            // Encrypt the password using bcrypt
+            const salt = await bcrypt.genSalt(10); //
+            // Encrypt the password
+            const encryptedPassword = await bcrypt.hash(password, salt);
+            // Save the user to the db
+            await User.updateOne(
+                {email: email},
+                { $set: {
+                    name: name,
+                    email: setEmail,
+                    password: encryptedPassword,
+                    avatar: avatar
+                }}
+            );
+            
+            // Create a payload which is the  user id on the db for token
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            }
+            // Sighn a toke for user to be auto logged in
+            await jwt.sign(payload, // data to be passed
+                config.get('jwtSecret'), // signature
+                { expiresIn: 360000}, //3600 default
+                (err, token) => {
+                    if (err) throw err;
+                    res.json({ token });
+                }); 
+
+            // return json webtoken so the user gets logged in right away
+            //res.send(`User added...`);
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send(`Server error`);
+        }
+
+});
 
 module.exports = router;
