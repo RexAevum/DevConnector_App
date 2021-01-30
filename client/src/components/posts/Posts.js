@@ -19,10 +19,13 @@ const Posts = ({ getPosts, post: { posts, loading }}) => {
             <Fragment>
             <h1 className="large text-primary">Posts</h1>
             <p className="lead">
-                <i className="fas fa-user"></i> Welcome to the community
+                <i className="fas fa-user"></i> What Others Have To Say
             </p>
             {/* Prost Form */}
             <PostForm />
+            <div className="bg-primary p">
+                    <h3 align="center">Brows The Latest Posts</h3>
+                </div>
             <div className="posts">
                 {posts.map(post => (
                     <PostItem key={post._id} post={post} />
