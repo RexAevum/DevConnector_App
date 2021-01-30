@@ -5,23 +5,31 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
 
-export const Navbar = ({ auth: { isAuthenticated, loading}, logout}) => {
+export const Navbar = ({ auth: { isAuthenticated, loading, user}, logout}) => {
     // for a logged in user
     const authLinks = (
         <ul>
             <li>
                 <Link to='/profiles'>
-                    Developers
+                    <i className="fas fa-users" />{' '}
+                    <span className="hide-sm">Developers</span>
                 </Link>
             </li>
             <li>
                 <Link to='/posts'>
-                    Posts
+                    <i className="fas fa-comments" />{' '}
+                    <span className="hide-sm">Posts</span>
+                </Link>
+            </li>
+            <li>
+                <Link to={`/profile/${user._id}`}>
+                    <i className="fas fa-id-badge" />{' '}
+                    <span className="hide-sm">My Profile</span>
                 </Link>
             </li>
             <li>
                 <Link to='/dashboard'>
-                    <i className="fas fa-user"></i>{' '}
+                    <i className="fas fa-user-cog"></i>{' '}
                     <span className="hide-sm">Dashboard</span>
                 </Link>
             </li>
