@@ -68,6 +68,7 @@ const UserForm = ({ setAlert, history, updateUser, auth: { user, loading }}) => 
             <h1 className="large text-primary">{user.name}</h1>
         <p className="lead"><i className="fas fa-user"></i> Update Your Account</p>
         <form className="form" onSubmit={e => onSubmit(e)}>
+            <h4>Name</h4>
             <div className="form-group">
                 <input 
                     type="text"
@@ -78,6 +79,7 @@ const UserForm = ({ setAlert, history, updateUser, auth: { user, loading }}) => 
                      
                 />
             </div>
+            <h4>Current Email</h4>
             <div className="form-group">
                 <input 
                     type="email" 
@@ -89,6 +91,7 @@ const UserForm = ({ setAlert, history, updateUser, auth: { user, loading }}) => 
                     
                 />
             </div>
+            <h4>New Email</h4>
             <div className="form-group">
                 <input 
                     type="email" 
@@ -104,6 +107,7 @@ const UserForm = ({ setAlert, history, updateUser, auth: { user, loading }}) => 
                 >
             </div>
             <p></p>
+            <h4>Password</h4>
             <div className="form-group">
                 <input
                     type="password"
