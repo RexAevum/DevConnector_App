@@ -14,6 +14,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const normalize = require('normalize-url');
+const auth = require('../../middleware/auth');
 
 
 // @route   POST api/users
@@ -92,16 +93,35 @@ router.post('/',
 
 });
 
-// @route   POST api/users/update-user
-// @desc    Update user
+// @route   GET api/users/me
+// @desc    Get current user
 // @access  Private
-router.post('/update-user', 
+router.get('/me', auth, async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.user.id }).select("-password");
+        // check if profile found
+        if (!user){
+            return res.status(400).json({errors : [{ msg: 'Could not find user'}]})
+        }
+        console.log(user)
+        res.json(user);
+    } catch (error) {
+        console.error(err.message);
+        if (err.kind == 'ObjectId'){
+            return res.status(400).json({msg : "There is no user"});
+        }
+        res.status(500).json({errors: [{ msg: `Server error`}]});
+    }
+});
+
+// @route   POST api/users/me/update
+// @desc    Update current user
+// @access  Private
+router.post('/me/update', 
     // check if user entered name
     body('name', 'Name is needed').not().isEmpty(),
     // check if a valid email has been entered
     body('email', 'Please include a valid email').isEmail(),
-    // check if password is atleast 6 char long
-    body('password', 'Please use a password with 6 or more chararcters').isLength({ min: 6}),
     async (req, res) => {
         // check if there are any input errors 
         const err = validationResult(req);
@@ -110,9 +130,10 @@ router.post('/update-user',
             return res.status(400).json({errors: err.array()});
         }
 
-        const {name, email, newEmail, password} = req.body;
+        const {name, email, newemail, password, password2} = req.body;
+        console.log(req.body)
 
-        const setEmail = newEmail ? newEmail : email;
+        const setEmail = newemail ? newemail : email;
 
         try {
             // Get users gravitar
@@ -128,20 +149,33 @@ router.post('/update-user',
             // find the user to get id for token
             const user = await User.findOne({email});
 
-            // Encrypt the password using bcrypt
-            const salt = await bcrypt.genSalt(10); //
-            // Encrypt the password
-            const encryptedPassword = await bcrypt.hash(password, salt);
-            // Save the user to the db
-            await User.updateOne(
-                {email: email},
-                { $set: {
-                    name: name,
-                    email: setEmail,
-                    password: encryptedPassword,
-                    avatar: avatar
-                }}
-            );
+            if (password !== null && password !== '' && password === password2){
+                // Encrypt the password using bcrypt
+                const salt = await bcrypt.genSalt(10); //
+                // Encrypt the password
+                const encryptedPassword = await bcrypt.hash(password, salt);
+                await User.updateOne(
+                    {email: email},
+                    { $set: {
+                        name: name,
+                        email: setEmail,
+                        password: encryptedPassword,
+                        avatar: avatar
+                    }}
+                );
+            }else{
+                // Save the user to the db without updating password
+                await User.updateOne(
+                    {email: email},
+                    { $set: {
+                        name: name,
+                        email: setEmail,
+                        avatar: avatar
+                    }},
+                    { new: true }
+                );
+            }
+
             
             // Create a payload which is the  user id on the db for token
             const payload = {
@@ -166,5 +200,6 @@ router.post('/update-user',
         }
 
 });
+
 
 module.exports = router;

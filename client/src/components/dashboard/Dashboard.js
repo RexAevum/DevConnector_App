@@ -18,9 +18,10 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
     // check if loading, since if no profile is found for user will run Spinner for ever
     return (loading && profile === null ? (<Spinner />) : (<Fragment>
         <h1 className="large text-primary">Dashboard</h1>
-        <p className="lead">
-            <i className="fas fa-user"></i> Welcome { user && user.name}
-        </p>
+        <div className="lead">
+            <i className="fas fa-user"></i> Welcome { user && user.name}{' '}
+            <small>({user && user.email})</small>
+        </div>
         {profile !== null ? (
             <Fragment>
                 <DashboardActions></DashboardActions>
@@ -28,6 +29,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
                 <Education education={profile.education}/>
 
                 <div className="my-2">
+                    <Link className="btn btn" to="/user">Edit User Info</Link>
                     <button className="btn btn-danger" onClick={() => deleteAccount()}>
                         <i className="fas fa-user-minus"></i> Delete My Account
                     </button>
@@ -38,6 +40,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
                 <Fragment>
                     <p>You have yet to add anything to your profile, add information to display here</p>
                     <Link to="/create-profile" className="btn btn-primary my-1">Setup Profile</Link>
+                    <Link className="btn btn my-1" to="/user">Edit User Info</Link>
                 </Fragment>    
             }</p>
             

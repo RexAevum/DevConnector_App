@@ -6,6 +6,7 @@ import alert from './alert';
 import auth from './auth';
 import profile from './profile';
 import post from './post';
+import user from './user';
 
 export default combineReducers({
     alert,
