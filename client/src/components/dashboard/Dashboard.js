@@ -29,7 +29,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
                 <Education education={profile.education}/>
 
                 <div className="my-2">
-                    <Link className="btn btn" to="/user">Edit User Info</Link>
+                    <Link className="btn btn my-1" to="/user"><i className="fas fa-user-edit text-primary"/> Edit User Info</Link>
                     <button className="btn btn-danger" onClick={() => deleteAccount()}>
                         <i className="fas fa-user-minus"></i> Delete My Account
                     </button>
@@ -40,7 +40,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
                 <Fragment>
                     <p>You have yet to add anything to your profile, add information to display here</p>
                     <Link to="/create-profile" className="btn btn-primary my-1">Setup Profile</Link>
-                    <Link className="btn btn my-1" to="/user">Edit User Info</Link>
+                    <Link className="btn btn my-1" to="/user"><i className="fas fa-user-edit"/> Edit User Info</Link>
                 </Fragment>    
             }</p>
             
