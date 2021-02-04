@@ -201,5 +201,51 @@ router.post('/me/update',
 
 });
 
+// @route   GET api/users/forgot
+// @desc    Get specific user using the email
+// @access  Public
+router.get('/forgot', async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email }).select("-password -name -avatar -date");
+        // check if profile found
+        if (!user){
+            return res.status(400).send(false);
+        }
+        res.status(200).send(true);
+    } catch (err) {
+        console.error(err.message);
+        if (err.kind == 'ObjectId'){
+            return res.status(400).json({msg : "No such user found"});
+        }
+        res.status(500).json({errors: [{ msg: `Server error`}]});
+    }
+});
+
+// @route   GET api/users/forgot-password
+// @desc    Get specific user using the email
+// @access  Public
+router.put('/forgot-password', async (req, res) => {
+    try {
+        console.log(req.body.email, req.body.password);
+        const password = req.body.password;
+        // new password willl be passed with req
+        // Encrypt the password using bcrypt
+        const salt = await bcrypt.genSalt(parseInt(config.get('salt'))); //
+        // Encrypt the password
+        const encryptedPassword = await bcrypt.hash(password, salt);
+        await User.updateOne(
+            {email: req.body.email},
+            { $set: {
+                password: encryptedPassword
+            }}
+        );
+
+        return res.status(200).send('Password Reset');
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+})
+
 
 module.exports = router;
