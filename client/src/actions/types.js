@@ -26,3 +26,6 @@ export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const GET_USER = 'GET_USER';
 export const USER_UPDATED = 'USER_UPDATED';
 export const USER_ERROR = 'USER_ERROR';
+export const PASSWORD_UPDATED = 'PASSWORD_UPDATED';
+export const USER_FOUND = 'USER_FOUND';
+export const FORGOT_ERROR = 'FORGOT_ERROR';

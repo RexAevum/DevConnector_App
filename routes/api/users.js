@@ -131,7 +131,6 @@ router.post('/me/update',
         }
 
         const {name, email, newemail, password, password2} = req.body;
-        console.log(req.body)
 
         const setEmail = newemail ? newemail : email;
 
@@ -201,12 +200,13 @@ router.post('/me/update',
 
 });
 
-// @route   GET api/users/forgot
+// @route   POST api/users/forgot
 // @desc    Get specific user using the email
 // @access  Public
-router.get('/forgot', async (req, res) => {
+router.post('/forgot',
+    async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email }).select("-password -name -avatar -date");
+        const user = await User.findOne({ email: req.body.email }).select("-password -name -avatar -date -_id");
         // check if profile found
         if (!user){
             return res.status(400).send(false);
@@ -240,10 +240,10 @@ router.put('/forgot-password', async (req, res) => {
             }}
         );
 
-        return res.status(200).send('Password Reset');
+        return res.status(200).send(true);
     } catch (error) {
         console.error(error.message);
-        res.status(500).send('Server Error');
+        res.status(500).send({errors: [{ msg: `Server error`}]});
     }
 })
 

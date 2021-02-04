@@ -1,11 +1,12 @@
 import {
-    USER_ERROR,
-    GET_USER,
-    USER_UPDATED
+    USER_FOUND,
+    PASSWORD_UPDATED,
+    FORGOT_ERROR
 } from '../actions/types';
 
 const initialState = {
-    user: null,
+    userFound: false,
+    passwordUpdated: false,
     loading: true,
     error: {}
 };
@@ -14,26 +15,24 @@ export default function (state = initialState, action){
     const { type, payload} = action;
 
     switch (type) {
-        case GET_USER:
+        case USER_FOUND:
             return {
                 ...state,
-                user: payload,
+                userFound: payload,
                 loading: false
             }
-        case USER_UPDATED:
+        case PASSWORD_UPDATED:
             return {
                 ...state,
-                user: payload,
+                passwordUpdated: payload,
                 loading: false
             }
-            break;
-        case USER_ERROR:
+        case FORGOT_ERROR:
             return {
                 ...state,
-                error: payload,
-                loading: false
+                loading: false,
+                error: payload
             }
-
         default:
             return state;
     }

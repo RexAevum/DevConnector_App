@@ -18,11 +18,13 @@ import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
 import NotFound from './components/layout/NotFound';
 import UserForm from './components/user/UserForm';
+import Forgot from './components/user/Forgot';
 // Redux
 import { Provider } from 'react-redux'; // all components will be able to access the store
 import store from './store';// the imported store using redux
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+
 
 
 // Check if the user is authenticated every time
@@ -49,6 +51,7 @@ const App = () => {
               <Route exact path='/login' component={Login}></Route>
               <Route exact path="/profiles" component={Profiles}></Route>
               <Route exact path="/profile/:id" component={Profile}/>
+              <Route exact path="/forgot" component={Forgot}/>
               <PrivateRoute exact path='/dashboard' component={Dashboard}></PrivateRoute>
               <PrivateRoute exact path="/create-profile" component={CreateProfile}></PrivateRoute>
               <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
