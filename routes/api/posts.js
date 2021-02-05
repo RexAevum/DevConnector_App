@@ -126,7 +126,7 @@ router.put('/like/:id', auth, async (req, res) => {
         // chack if this post has already been liked by the current user
         // filter returns a new array, if this array is not empty, the user already liked the post
         const likesByUser = post.likes.filter(like => like.user.toString() === req.user.id);
-        // .lenght reutned undefined
+        // .lenght returned undefined
         if (Object.keys(likesByUser).length > 0){
             return res.status(400).json({ msg : 'Post already liked'});
         }
