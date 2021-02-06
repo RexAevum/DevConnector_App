@@ -29,3 +29,7 @@ export const USER_ERROR = 'USER_ERROR';
 export const PASSWORD_UPDATED = 'PASSWORD_UPDATED';
 export const USER_FOUND = 'USER_FOUND';
 export const FORGOT_ERROR = 'FORGOT_ERROR';
+export const GET_FEEDBACKS = 'GET_FEEDBACKS';
+export const ADD_FEEDBACK = 'ADD_FEEDBACK';
+export const UPDATE_FEEDBACK = 'UPDATE_FEEDBACK';
+export const ERROR_FEEDBACK = 'ERROR_FEEDBACK';
