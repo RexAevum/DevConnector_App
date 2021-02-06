@@ -45,7 +45,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
             }</p>
             
         )}
-
+        <Link to="/feedback" className="btn btn-white my-1">Submit Feedback</Link>
     </Fragment>)
     );
 }

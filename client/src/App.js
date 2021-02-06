@@ -19,11 +19,13 @@ import Post from './components/post/Post';
 import NotFound from './components/layout/NotFound';
 import UserForm from './components/user/UserForm';
 import Forgot from './components/user/Forgot';
+import Feedback from './components/feedback/Feedback';
 // Redux
 import { Provider } from 'react-redux'; // all components will be able to access the store
 import store from './store';// the imported store using redux
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+
 
 
 
@@ -46,6 +48,7 @@ const App = () => {
           <Navbar/>
           <Route exact path='/' component={Landing}/>
           <section className="container">
+          <Alert />
             <Switch>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
@@ -60,12 +63,12 @@ const App = () => {
               <PrivateRoute exact path="/posts" component={Posts} />
               <PrivateRoute exact path="/posts/:id" component={Post} />
               <PrivateRoute exact path="/user" component={UserForm} />
+              <PrivateRoute exact path="/feedback" component={Feedback}/>  
               {window.location.pathname !== "/" && (
                 <Route path="*" exact={true}  component={NotFound}/>
               )}
               
             </Switch>
-            <Alert />
           </section>
         </Fragment>
       </Router>

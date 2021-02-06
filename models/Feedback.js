@@ -6,12 +6,18 @@ const FeedbackSchema = mongose.Schema({
         ref: 'users'
     },
     name :{
-        type: String,
-        default: "Anonymous"
+        type: String
     },
-    title: {
+    anonymous: {
+        type: Boolean,
+        default: false
+    },
+    type: {
         type: String,
         required: true
+    },
+    title: {
+        type: String
     },
     text: {
         type: String,

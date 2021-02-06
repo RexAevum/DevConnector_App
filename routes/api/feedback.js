@@ -13,8 +13,7 @@ const Feedback = require('../../models/Feedback');
 // @desc    Create a new feedback entry
 // @access  Private
 router.post('/',[auth, [
-    body('text', 'Text field is empty').not().isEmpty(),
-    body('title', 'Please enter a title for your feedback').not().isEmpty()
+    body('text', 'Text field is empty').not().isEmpty()
 ]], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
@@ -27,11 +26,13 @@ router.post('/',[auth, [
 
         // get feedback info from the req and the user that makes the request
         const newFeedback = new Feedback({
+            anonymous: req.body.anonymous,
+            type: req.body.type,
             title: req.body.title,
             text: req.body.text, //in body
-            name: req.body.showName ? user.name : 'Anonymous', // in user account
+            name: req.body.anonymous ? 'Anonymous' : user.name, // in user account
             user: req.user.id, // in request header after auth
-            status: "New"
+            status: req.body.status
         });
 
         // Save feedback to db
@@ -46,7 +47,7 @@ router.post('/',[auth, [
 });
 
 // @route   GET api/feedback
-// @desc    Get all feedbacked feedbacks
+// @desc    Get all feedbacks
 // @access  Private
 router.get('/', auth, async(req, res) => {
     try {
