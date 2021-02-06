@@ -68,6 +68,9 @@ const Login = ({ login, isAuthenticated }) => {
         <p className="my-1">
             Don't have an account? <Link to="/register">Create Account</Link>
         </p>
+        <p className="my-1">
+            Forgot Your Password? <Link to="/forgot">Forgot Password</Link>
+        </p>
     </Fragment>
     )
 };

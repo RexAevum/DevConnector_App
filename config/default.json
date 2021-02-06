@@ -2,5 +2,6 @@
     "mongoURI" : "mongodb+srv://admin:admin2021@devconnector.moibj.mongodb.net/DevConnector?retryWrites=true&w=majority",
     "jwtSecret" : "mysecrettoken",
     "githubClientId" : "0d7216795aafda069a2d",
-    "githubSecret" : "55e9dddb4e7cbf5cf0f2c5e0684e65a9ad4c90f1"
+    "githubSecret" : "55e9dddb4e7cbf5cf0f2c5e0684e65a9ad4c90f1",
+    "salt" : "15"
 }

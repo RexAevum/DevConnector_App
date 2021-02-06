@@ -31,7 +31,7 @@ const Experience = ({ experience, deleteExperience }) => {
                         <th>Company</th> {/* Define a header cell */}
                         <th className="hide-sm">Title</th>
                         <th className="hide-sm">Duration</th>
-                        <th className="hide-sm">Remove</th>
+                        <th className="hide-sm"></th>
                     </tr>
                 </thead>
                 <tbody>

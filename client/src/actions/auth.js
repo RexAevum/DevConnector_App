@@ -58,7 +58,7 @@ export const register = ({ name, email, password }) => async dispatch => {
         })
 
         // display an alert that the user has been registered
-        setTimeout(() => dispatch(setAlert('User Registered Successfuly. Redirecting...', 'success')), 3000);
+        setTimeout(() => dispatch(setAlert('User Registered Successfully', 'success')), 3000);
         dispatch(loadUser());
     } catch (error) {
         // get the errors array that will be sent back by the server
@@ -81,7 +81,6 @@ export const register = ({ name, email, password }) => async dispatch => {
 
 // Login user
 export const login = ( email, password ) => async dispatch => {
-    console.log(email, password);
     // set up head
     const config = {
         headers: {

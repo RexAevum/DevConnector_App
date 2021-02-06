@@ -29,7 +29,6 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
         if (!profile) getCurrentProfile();
         if (!loading && profile) {
           const profileData = { ...initialState };
-          console.log(profileData)
           for (const key in profile) {
             if (key in profileData) profileData[key] = profile[key];
           }
@@ -76,6 +75,7 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
             <small>* = required field</small>
             <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
+                <h4>Professianal Status</h4>
                 <select name="status" value={status} onChange={e => onChange(e)}>
                     <option value="0">* Select Professional Status</option>
                     <option value="Developer">Developer</option>
@@ -92,24 +92,28 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
                 >
                 </div>
                 <div className="form-group">
+                <h4>Company</h4>
                 <input type="text" placeholder="Company" name="company" value={company} onChange={e => onChange(e)}/>
                 <small className="form-text"
                     >Could be your own company or one you work for</small
                 >
                 </div>
                 <div className="form-group">
+                <h4>Website</h4>
                 <input type="text" placeholder="Website" name="website" value={website} onChange={e => onChange(e)}/>
                 <small className="form-text"
                     >Could be your own or a company website</small
                 >
                 </div>
                 <div className="form-group">
+                <h4>Location</h4>
                 <input type="text" placeholder="Location" name="location" value={location} onChange={e => onChange(e)}/>
                 <small className="form-text"
                     >City & state suggested (eg. Boston, MA)</small
                 >
                 </div>
                 <div className="form-group">
+                <h4>Skills</h4>
                 <input type="text" placeholder="* Skills" name="skills" value={skills} onChange={e => onChange(e)}/>
                <small className="form-text"
                     > - Please use comma separated values (eg.
@@ -117,6 +121,7 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
                 >
                 </div>
                 <div className="form-group">
+                <h4>Github Username</h4>
                 <input
                     type="text"
                     placeholder="Github Username"
@@ -130,7 +135,8 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
                 >
                 </div>
                 <div className="form-group">
-                <textarea placeholder="A short bio of yourself" name="bio" value={bio} onChange={e => onChange(e)}></textarea>
+                <h4>Bio</h4>
+                <textarea rows="7" placeholder="A short bio of yourself" name="bio" value={bio} onChange={e => onChange(e)}></textarea>
                 <small className="form-text">Tell us a little about yourself</small>
                 </div>
 
@@ -142,7 +148,7 @@ const EditProfile = ({ profile: {profile, loading}, createOrUpdateProfile, getCu
                 </div>
 
                 {displaySocialInputs && (<Fragment>
-                        
+                    <h4>Social Network Links</h4>    
                     <div className="form-group social-input">
                         <i className="fab fa-twitter fa-2x"></i>
                         <input type="text" placeholder="Twitter URL" name="twitter" value={twitter} onChange={e => onChange(e)}/>

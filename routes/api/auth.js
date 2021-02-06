@@ -69,7 +69,7 @@ router.post('/',
             // check if the passwords match
             if(!isMatch){
                 // return error that password is wrong
-                res.status(400).json([{ msg : 'Invalid Credentials'}]);
+                res.status(400).json({ errors: [{ msg : 'Invalid User' }] });
             }
 
             // Sign a toke for user to be auto logged in
